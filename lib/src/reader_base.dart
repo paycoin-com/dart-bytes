@@ -4,7 +4,6 @@ import "reader.dart";
 
 /// Base implementations of the [Reader] interface.
 abstract class ReaderBase implements Reader {
-
   @override
   int readByte() => readBytes(1)[0];
 

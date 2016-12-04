@@ -6,7 +6,6 @@ import "reader_impl.dart";
 
 /// A class for reading bytes from an underlying buffer.
 abstract class Reader {
-
   /// Create a new [Reader] for [bytes].
   ///
   /// Arguments:

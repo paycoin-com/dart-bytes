@@ -1,11 +1,8 @@
 library bytes.src.buffer;
 
-
 import "buffer_impl.dart";
 
-
 abstract class Buffer implements Sink<List<int>> {
-
   /// Create a new Buffer.
   ///
   /// Arguments:

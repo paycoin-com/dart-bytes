@@ -7,7 +7,6 @@ import "reader.dart";
 import "reader_buffer_impl.dart";
 
 abstract class ReaderBuffer implements Reader, Buffer {
-
   /// Create a new [ReaderBuffer] with [bytes] as it's initial content.
   ///
   /// Arguments:
@@ -27,7 +26,8 @@ abstract class ReaderBuffer implements Reader, Buffer {
       buffer = new Uint8List.view(bytes, 0, bytes.lengthInBytes);
       length = bytes.lengthInBytes;
     } else if (bytes is TypedData) {
-      buffer = new Uint8List.view(bytes.buffer, bytes.offsetInBytes, bytes.lengthInBytes);
+      buffer = new Uint8List.view(
+          bytes.buffer, bytes.offsetInBytes, bytes.lengthInBytes);
       length = buffer.length;
     } else if (bytes is List) {
       buffer = new Uint8List.fromList(bytes);
@@ -36,5 +36,4 @@ abstract class ReaderBuffer implements Reader, Buffer {
 
     return new ReaderBufferImpl(buffer, offset ?? 0, length, copy ?? false);
   }
-
 }

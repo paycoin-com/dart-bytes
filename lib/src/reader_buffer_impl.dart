@@ -40,7 +40,9 @@ class ReaderBufferImpl extends ReaderBase implements ReaderBuffer {
   }
 
   @override
-  void addByte(int byte) { add([byte]); }
+  void addByte(int byte) {
+    add([byte]);
+  }
 
   @override
   void grow(int n) {

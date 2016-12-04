@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file of the Dart project.
 library bytes.test.buffer;
 
-
 import "dart:io";
 import "dart:typed_data";
 
@@ -63,8 +62,10 @@ main() {
       bytes = b.takeBytes();
       testLength(0);
       expect(bytes, new isInstanceOf<Uint8List>());
-      expect(bytes, orderedEquals(
-          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]));
+      expect(
+          bytes,
+          orderedEquals(
+              [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]));
 
       b.addByte(0);
       testLength(1);

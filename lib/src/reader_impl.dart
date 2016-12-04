@@ -8,7 +8,6 @@ import "reader_base.dart";
 
 /// An implementation of [Reader] that always copies data before returning it.
 class ReaderImpl extends ReaderBase {
-
   /// Store the bytes.
   ByteBuffer _buffer;
   int _offset = 0;

@@ -37,7 +37,9 @@ class BufferImpl implements Buffer {
   }
 
   @override
-  void addByte(int byte) { add([byte]); }
+  void addByte(int byte) {
+    add([byte]);
+  }
 
   @override
   void grow(int n) {
