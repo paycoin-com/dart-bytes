@@ -67,4 +67,24 @@ main() {
       testLength(1);
     });
   }
+
+  // two tests that I had from Dartcoin
+  test("byte_sink_1", () {
+    Buffer bs = new Buffer();
+    bs.add(new Uint8List.fromList([1,2,3]));
+    expect(bs.length, equals(3));
+    bs.add([4,5,6,7]);
+    expect(bs.length, equals(7));
+    bs.addByte(8);
+    expect(bs.asBytes(), equals([1,2,3,4,5,6,7,8]));
+  });
+
+  test("byte_sink_2", () {
+    Buffer bs = new Buffer();
+    bs.add([4,5,6,7]);
+    expect(bs.length, equals(4));
+    bs.add(new Uint8List.fromList([1,2,3]));
+    bs.addByte(8);
+    expect(bs.asBytes(), equals([4,5,6,7,1,2,3,8]));
+  });
 }
