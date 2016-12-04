@@ -1,4 +1,6 @@
-part of bytes;
+library bytes.src.reader_base;
+
+import "reader.dart";
 
 /// Base implementations of the [Reader] interface.
 abstract class ReaderBase implements Reader {

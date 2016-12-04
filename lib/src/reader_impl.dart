@@ -1,14 +1,20 @@
-part of bytes;
+library bytes.src.reader_impl;
+
+import "dart:math";
+import "dart:typed_data";
+
+import "eof_exception.dart";
+import "reader_base.dart";
 
 /// An implementation of [Reader] that always copies data before returning it.
-class _ReaderImpl extends ReaderBase {
+class ReaderImpl extends ReaderBase {
 
   /// Store the bytes.
   ByteBuffer _buffer;
   int _offset = 0;
   bool _copy;
 
-  _ReaderImpl(this._buffer, this._offset, this._copy);
+  ReaderImpl(this._buffer, this._offset, this._copy);
 
   @override
   int get remainingLength => _buffer.lengthInBytes - _offset;

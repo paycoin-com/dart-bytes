@@ -1,7 +1,14 @@
-part of bytes;
+library bytes.src.buffer_impl;
+
+import "dart:math";
+import "dart:typed_data";
+
+import "buffer.dart";
+import "eof_exception.dart";
+import "reader_base.dart";
 
 /// The default implementation of [Buffer].
-class _BufferImpl extends ReaderBase implements Buffer {
+class BufferImpl extends ReaderBase implements Buffer {
   // Start with 1024 bytes.
   static const int _INIT_SIZE = 1024;
 
@@ -11,7 +18,7 @@ class _BufferImpl extends ReaderBase implements Buffer {
 
   bool _copy;
 
-  _BufferImpl(this._copy);
+  BufferImpl(this._copy);
 
   @override
   void add(List<int> bytes) {

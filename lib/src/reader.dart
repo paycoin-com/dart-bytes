@@ -1,4 +1,8 @@
-part of bytes;
+library bytes.src.reader;
+
+import "dart:typed_data";
+
+import "reader_impl.dart";
 
 /// A class for reading bytes from an underlying buffer.
 abstract class Reader {
@@ -6,19 +10,15 @@ abstract class Reader {
   /// Create a new [Reader] for [bytes].
   ///
   /// Arguments:
-  ///  - [bytes]: the underlying byte buffer - can be either [Buffer],
-  ///             [ByteBuffer], [TypedData] or [List<int>].
+  ///  - [bytes]: the underlying byte buffer - can be either [ByteBuffer],
+  ///             [TypedData] or [List<int>].
   ///  - [offset]: the initial offset
   ///  - [copy]: if true, this [Reader] will always make a copy of data before
   ///     returning it
   factory Reader(dynamic bytes, {int offset: 0, bool copy: false}) {
     // extract a ByteBuffer from the bytes data
     ByteBuffer buffer;
-    if (bytes is Buffer) {
-      assert (bytes is _BufferImpl);
-      buffer = bytes._buffer.buffer;
-      offset += bytes._offset + bytes._buffer.offsetInBytes;
-    } else if (bytes is ByteBuffer) {
+    if (bytes is ByteBuffer) {
       buffer = bytes as ByteBuffer;
     } else if (bytes is TypedData) {
       buffer = bytes.buffer;
@@ -27,7 +27,7 @@ abstract class Reader {
       buffer = new Uint8List.fromList(bytes).buffer;
     }
 
-    return new _ReaderImpl(buffer, offset ?? 0, copy ?? false);
+    return new ReaderImpl(buffer, offset ?? 0, copy ?? false);
   }
 
   /// The number of bytes in the unread portion of the reader.

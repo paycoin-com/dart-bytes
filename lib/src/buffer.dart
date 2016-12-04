@@ -1,4 +1,8 @@
-part of bytes;
+library bytes.src.buffer;
+
+
+import "reader.dart";
+import "buffer_impl.dart";
 
 
 abstract class Buffer implements Reader, Sink<List<int>> {
@@ -9,7 +13,7 @@ abstract class Buffer implements Reader, Sink<List<int>> {
   /// - [copy]: if true, this [Buffer] will always make a copy of data before
   ///     returning it
   factory Buffer({bool copy: false}) {
-    return new _BufferImpl(copy ?? false);
+    return new BufferImpl(copy ?? false);
   }
 
   /// Appends [bytes] at the end of the buffer.
