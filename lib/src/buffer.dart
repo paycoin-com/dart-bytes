@@ -1,11 +1,10 @@
 library bytes.src.buffer;
 
 
-import "reader.dart";
 import "buffer_impl.dart";
 
 
-abstract class Buffer implements Reader, Sink<List<int>> {
+abstract class Buffer implements Sink<List<int>> {
 
   /// Create a new Buffer.
   ///
@@ -25,6 +24,13 @@ abstract class Buffer implements Reader, Sink<List<int>> {
 
   /// Grow the buffer's capacity to guarantee space for another n bytes.
   void grow(int n);
+
+  /// The size of the buffer's content.
+  int get length;
+
+  /// The size of the underlying buffer. This is the length to which it can grow
+  /// without having to reallocate new space.
+  int get capacity;
 
   /// Clear the content of the buffer.
   void clear();

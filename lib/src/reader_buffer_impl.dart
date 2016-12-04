@@ -1,21 +1,24 @@
-library bytes.src.buffer_impl;
+library bytes.src.reader_buffer_impl;
 
 import "dart:math";
 import "dart:typed_data";
 
-import "buffer.dart";
+import "eof_exception.dart";
+import "reader_base.dart";
+import "reader_buffer.dart";
 
-/// The default implementation of [Buffer].
-class BufferImpl implements Buffer {
+/// The default implementation of [ReaderBuffer].
+class ReaderBufferImpl extends ReaderBase implements ReaderBuffer {
   // Start with 1024 bytes.
   static const int _INIT_SIZE = 1024;
 
   Uint8List _buffer;
+  int _offset = 0;
   int _length = 0;
 
   bool _copy;
 
-  BufferImpl(this._copy);
+  ReaderBufferImpl(this._buffer, this._offset, this._length, this._copy);
 
   @override
   void add(List<int> bytes) {
@@ -54,8 +57,29 @@ class BufferImpl implements Buffer {
   }
 
   // create a Uint8List view on the underlying ByteBuffer of _buffer
-  Uint8List _view(int size) =>
-      _buffer.buffer.asUint8List(_buffer.offsetInBytes, size);
+  Uint8List _view(int offset, int size) =>
+      _buffer.buffer.asUint8List(_buffer.offsetInBytes + offset, size);
+
+  @override
+  List<int> readBytes(int n) {
+    if (n < 0) throw new ArgumentError.value(n, "n", "negative");
+    if (remainingLength < n) throw new EndOfFileException();
+
+    Uint8List result = _view(_offset, n);
+    if (_copy) {
+      result = new Uint8List.fromList(result);
+    }
+    _offset += n;
+    return result;
+  }
+
+  @override
+  int readBytesInto(List<int> b) {
+    int num = min(remainingLength, b.length);
+    b.setRange(0, num, _view(_offset, num));
+    _offset += num;
+    return num;
+  }
 
   @override
   int get length => _length;
@@ -64,11 +88,15 @@ class BufferImpl implements Buffer {
   int get capacity => _buffer.length;
 
   @override
+  int get remainingLength => _length - _offset;
+
+  @override
   bool get isEmpty => _length == 0;
 
   @override
   void clear() {
     _length = 0;
+    _offset = 0;
     _buffer = null;
   }
 
@@ -78,7 +106,7 @@ class BufferImpl implements Buffer {
   @override
   List<int> asBytes() {
     if (_buffer == null) return new Uint8List(0);
-    return _view(_length);
+    return _view(0, length);
   }
 
   @override

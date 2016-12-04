@@ -13,7 +13,7 @@ import "package:bytes/bytes.dart";
 
 main() {
   for (var copying in [true, false]) {
-    test("Buffer ${copying ? "with" : "without"} copying", () {
+    test("ReaderBuffer ${copying ? "with" : "without"} copying", () {
       var b;
       testLength(n) {
         expect(b, hasLength(n));
@@ -24,7 +24,7 @@ main() {
         }
       }
 
-      b = new Buffer(copy: copying);
+      b = new ReaderBuffer(copy: copying);
       testLength(0);
 
       b.addByte(0);
@@ -48,6 +48,16 @@ main() {
       testLength(13);
 
       b.add("\x0d\x0e\x0f".codeUnits);
+      testLength(16);
+
+      var v = b.readByte();
+      expect(v, equals(0));
+      testLength(16);
+
+      v = b.readBytes(10);
+      expect(v, new isInstanceOf<Uint8List>());
+      expect(v, hasLength(10));
+      expect(v, orderedEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
       testLength(16);
 
       bytes = b.takeBytes();

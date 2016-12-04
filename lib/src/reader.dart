@@ -14,7 +14,7 @@ abstract class Reader {
   ///             [TypedData] or [List<int>].
   ///  - [offset]: the initial offset
   ///  - [copy]: if true, this [Reader] will always make a copy of data before
-  ///     returning it
+  ///            returning it
   factory Reader(dynamic bytes, {int offset: 0, bool copy: false}) {
     // extract a ByteBuffer from the bytes data
     ByteBuffer buffer;
