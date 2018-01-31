@@ -3,14 +3,9 @@ library bytes.src.buffer;
 import "buffer_impl.dart";
 
 abstract class Buffer implements Sink<List<int>> {
+
   /// Create a new Buffer.
-  ///
-  /// Arguments:
-  /// - [copy]: if true, this [Buffer] will always make a copy of data before
-  ///     returning it
-  factory Buffer({bool copy: false}) {
-    return new BufferImpl(copy ?? false);
-  }
+  factory Buffer() => new BufferImpl();
 
   /// Appends [bytes] at the end of the buffer.
   @override

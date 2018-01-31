@@ -18,7 +18,7 @@ abstract class Reader {
     // extract a ByteBuffer from the bytes data
     ByteBuffer buffer;
     if (bytes is ByteBuffer) {
-      buffer = bytes as ByteBuffer;
+      buffer = bytes;
     } else if (bytes is TypedData) {
       buffer = bytes.buffer;
       offset += bytes.offsetInBytes;

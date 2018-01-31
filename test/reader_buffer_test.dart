@@ -3,11 +3,9 @@
 // BSD-style license that can be found in the LICENSE file of the Dart project.
 library bytes.test.buffer;
 
-import "dart:io";
 import "dart:typed_data";
 
 import "package:test/test.dart";
-
 import "package:bytes/bytes.dart";
 
 main() {

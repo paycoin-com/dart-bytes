@@ -13,9 +13,7 @@ class BufferImpl implements Buffer {
   Uint8List _buffer;
   int _length = 0;
 
-  bool _copy;
-
-  BufferImpl(this._copy);
+  BufferImpl();
 
   @override
   void add(List<int> bytes) {
